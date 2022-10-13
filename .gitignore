@@ -5,5 +5,7 @@
 pyvenv.cfg
 *.json
 /raw_output
-.next.
-config.py
+.next.txt
+config.
+.cache*
+__pycache__
