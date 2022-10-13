@@ -4,3 +4,8 @@
 .idea/
 pyvenv.cfg
 *.json
+/raw_output
+.next.txt
+config.
+.cache*
+__pycache__
