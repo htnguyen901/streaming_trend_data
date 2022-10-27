@@ -3,10 +3,10 @@ import json as json_func
 from os.path import join, isfile
 from data_collection import sputil as sp
 import pandas as pd
-import requests as r
+import requests
 from datetime import datetime
 
-path = os.getcwd()
+path = 'D:\CODING\Projects\streaming_trend'
 raw_csv_folder = path + '/raw_output/'
 dbt_seed_folder = path + '/dbt/data/'
 print(raw_csv_folder)
@@ -24,7 +24,7 @@ def get_recent():
         with open(next_fname) as f:
             params['after'] = int(f.read())
 
-    response = r.get(
+    response = requests.get(
         sp.base_url + 'me/player/recently-played',
         params=params,
         headers=sp.auth_header)
@@ -52,7 +52,7 @@ def get_recent():
 
         #get track features
         id = track['id']
-        response = r.get(sp.base_url + 'audio-features/' + id ,headers=sp.auth_header)
+        response = requests.get(sp.base_url + 'audio-features/' + id ,headers=sp.auth_header)
         json = response.json()
         track_features = json
         track['features'] =json_func.dumps(track_features)
