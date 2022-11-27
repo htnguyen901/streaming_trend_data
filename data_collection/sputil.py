@@ -10,10 +10,6 @@ auth_header = None
 
 
 def login(base_url):
-    # username = 'ux6eps888djgn79vsn00f3315'
-    # client_id = 'ce7b531c8cf249d3b73d1e7bea6342fd'
-    # client_secret = '703a710a017f48048d74f6d67ec9ecf2'
-    # redirect_uri = 'http://localhost:7777/callback'
 
     # After being redirected (to a nonexistent localhost page), copy and paste the url containing the auth code
     # into the terminal and spotipy will parse the code and get the resulting OAuth token.
@@ -34,6 +30,7 @@ def login(base_url):
 
 
 def format_track(json, include_duration=False):
+
     def assert_key(key, msg, js=None):
         #print(json)
         if js is None:
@@ -51,7 +48,7 @@ def format_track(json, include_duration=False):
 
     id = assert_key('id', 'No id for track')
 
-    d = {'title': '\'' + title + '\'',
+    d = {'name': '\'' + title + '\'',
          'artist': '\'' + name + '\'',
          'id': id}
 
@@ -62,6 +59,10 @@ def format_track(json, include_duration=False):
     d['popularity'] = assert_key('popularity', 'No popularity for track')
 
     return d
+
+def get_artist_genre(artist_obj):
+    genres = artist_obj['genres']
+    return genres
 
 
 if auth_header is None:
