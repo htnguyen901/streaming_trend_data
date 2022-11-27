@@ -3,7 +3,7 @@ import json as json_func
 from os.path import join, isfile
 from data_collection import sputil as sp
 import pandas as pd
-import requests as r
+import requests
 from datetime import datetime
 
 path = os.getcwd()
@@ -24,11 +24,11 @@ def get_recent():
         with open(next_fname) as f:
             params['after'] = int(f.read())
 
-    response = r.get(
+    response = requests.get(
         sp.base_url + 'me/player/recently-played',
         params=params,
         headers=sp.auth_header)
-    print(response.text)
+#    print(response.text)
 
     assert response.status_code == 200, 'Request responded with non-200 status %d' % r.status_code
 
@@ -50,9 +50,15 @@ def get_recent():
     for track_obj in json['items']:
         track = sp.format_track(track_obj, True)
 
+        # get genres
+        track_ = track_obj['track']
+        artist = track_['artists']
+        artist_id = artist[0]['id']
+        response = requests.get(sp.base_url + 'artists/' + artist_id, headers=sp.auth_header)
+        artist_obj = response.json()
         #get track features
         id = track['id']
-        response = r.get(sp.base_url + 'audio-features/' + id ,headers=sp.auth_header)
+        response = requests.get(sp.base_url + 'audio-features/' + id ,headers=sp.auth_header)
         json = response.json()
         track_features = json
         track['features'] =json_func.dumps(track_features)
@@ -61,6 +67,7 @@ def get_recent():
         played_at = datetime.strptime(played_at, '%Y-%m-%dT%H:%M:%S.%fZ')
         track['timestamp'] = played_at.timestamp()
         track['created_at'] = datetime.now().timestamp()
+        track['genres'] = sp.get_artist_genre(artist_obj)
 
         tracks.append(track)
 

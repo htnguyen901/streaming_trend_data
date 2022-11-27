@@ -1,11 +1,15 @@
 with source as (
-    select id, title, artist, duration, popularity, timestamp as played_at, created_at,
+    select id, name, artist, duration, popularity, timestamp as played_at, created_at, genres,
             features::json
     from {{ ref('recently_played')}} r
 ),
 
 final as (
-    select id, title, artist, duration, popularity, played_at, created_at,
+    select id,
+            replace(name, '''', '') as name,
+            replace(artist, '''', '') as artist,
+            duration, popularity, played_at, created_at,
+            replace(genres, '''', '') as genres,
             features->'danceability' as danceability,
             features->'energy' as energy,
             features->'key' as key,

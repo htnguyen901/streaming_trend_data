@@ -1,0 +1,12 @@
+spotify_trend:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: 192.168.1.9
+      user: postgres
+      password: 'Hieungughe1'
+      port: 5432
+      dbname: 'spotify_trend'
+      schema: devtest
+      threads: 1

@@ -6,6 +6,10 @@ pyvenv.cfg
 *.json
 /raw_output
 .next.txt
-config.
+config.py
 .cache*
 __pycache__
+configure.py
+data_collection/spotify/
+.ipynb_checkpoints/
+out_notebook/
