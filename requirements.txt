@@ -4,8 +4,6 @@ pandas==1.2.4
 dbt-core==1.2.1
 dbt-postgres==1.2.1
 streamlit==1.9.2
-webrtcvad-wheels
-halo==0.0.18
 numpy>=1.15.1
 scipy>=1.1.0
 apache-airflow-providers-papermill
