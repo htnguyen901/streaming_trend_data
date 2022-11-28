@@ -13,3 +13,4 @@ configure.py
 data_collection/spotify/
 .ipynb_checkpoints/
 out_notebook/
+.streamlit/

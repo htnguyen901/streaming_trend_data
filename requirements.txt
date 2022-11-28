@@ -13,3 +13,4 @@ ipykernel
 matplotlib
 scikit-learn
 xgboost
+psycopg2-binary
